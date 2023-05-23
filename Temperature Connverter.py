@@ -28,8 +28,9 @@ class converter:
                                 font=("Ariel", "14"))
         self.temp_entry.grid(row=2, padx=10, pady=10)
 
+
         error = "please enter a number"
-        self.temp_error = Label(self.temp_frame, text=error,
+        self.temp_error = Label(self.temp_frame, text="",
                                 fg="#9c0000")
         self.temp_error.grid(row=3)
 
@@ -40,7 +41,7 @@ class converter:
                                         text="To Celsius",
                                         bg="#990099",
                                         fg="#FFFFFF",
-                                        command=self.to_celcius)
+                                        command=self.to_celsius)
         self.to_celsius_button.grid(row=0, column=0, padx=5, pady=5)
 
         self.to_farenheit_button = Button(self.button_frame,
@@ -64,21 +65,24 @@ class converter:
                                        state=DISABLED)
         self.to_history_button.grid(row=1, column=1, padx=5, pady=5)
 
-    def check_temp(min_value):
-        error = "pPlease enter a number that is more than {}".format(min_value)
+    def check_temp(self, min_value):
+        error = "Please enter a number that is more " \
+                "than {}".format(min_value)
 
         try:
             response = self.temp_entry.get()
             response = float(response)
 
             if response < min_value:
-                print(error)
+                self.temp_error.config(text=error)
             else:
                 return response
+
         except ValueError:
             self.temp_error.config(text=error)
 
-    def to_celcius(self):
+
+    def to_celsius(self):
         self.check_temp(-459)
 
 
@@ -88,4 +92,5 @@ if __name__ == "__main__":
     root.title("Temperature Converter")
     converter()
     root.mainloop()
+
 
